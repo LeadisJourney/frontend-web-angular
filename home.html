@@ -1,14 +1,26 @@
 ﻿<h2>
-    {{ message }}
+	{{ message }}
 </h2>
-
 </br>
-<form>
-	<textarea rows="5" cols="60" ng-model="inputs"></textarea>
-</form>
-</br>
-<p>
-	{{ results }}
-</p>
 
-<p> {{ inputs }} </p>
+<article ng-show="!currentExercise">
+	<article ng-show="exercises.length" class="col-md-3 lesson-list">
+		<a ng-repeat="exercise in exercises" class="btn btn-default" ng-click="showExercise(exercise)">{{ exercise.title }}</a>
+	</article>
+</article>
+
+<article ng-show="currentExercise">
+	<h3>
+		<a class="btn btn-default" ng-click="showPanelExercise()">{{ changeExerciseButton }}</a>
+		{{ currentExercise.title }}
+	</h3>
+	<form>
+		<textarea rows="5" cols="60" ng-model="inputs"></textarea>
+	</form>
+	</br>
+	<p>
+		{{ results }}
+	</p>
+
+	<p> {{ inputs }} </p>
+</article>
