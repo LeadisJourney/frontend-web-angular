@@ -1,0 +1,20 @@
+﻿<h2>
+    Lessons
+</h2>
+<br/>
+
+<article ng-show="lessons.length" class="col-md-3 lesson-list">
+	<a ng-repeat="lesson in lessons" class="btn btn-default" ng-click="showLesson(lesson)">{{ lesson.title }}</a>
+</article>
+
+<div class="col-md-9">
+    <article ng-show="activeItem.description">
+	    <p>{{ activeItem.description }}</p>
+    </article>
+    <article ng-show="activeItem.image">
+	    <img ng-src="{{ activeItem.image }}" style="width:50%; height:50%">
+    </article>
+    <article ng-show="activeItem.video">
+    	<video ng-src="{{ activeItem.video }}" controls preload="auto"></video>
+    </article>
+</div>

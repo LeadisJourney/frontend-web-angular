@@ -1,0 +1,23 @@
+/* Colors */
+body {
+	color: #5B3349;
+}
+
+.navbar-inverse {
+	background-color: #5B3349;
+	border-color: #BF3B58;
+}
+
+.navbar-nav > li > a {
+	color: #F4C284 !important;
+}
+
+.btn-default {
+	background-color: #F4C284;
+    color: #5B3349;
+}
+
+.btn-default:hover {
+    background-color: #F5A286;
+}
+

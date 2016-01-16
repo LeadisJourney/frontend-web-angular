@@ -1,0 +1,17 @@
+@font-face {
+    font-family: mainFont;
+    src: url('../fonts/DAYROM__.ttf');
+}
+
+@font-face {
+    font-family: titleFont;
+    src: url('../fonts/Evogria.otf');
+}
+
+body {
+    font-family: mainFont;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: titleFont;
+}

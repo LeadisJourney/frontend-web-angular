@@ -1,0 +1,38 @@
+/* index.html */
+.logo-img {
+	width: 80px;
+}
+
+.navbar-inverse {
+	height: 40px;
+	border-width: 0px 0px 2px;
+}
+
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
+.navbar-nav > li {
+		float: none;
+		display: inline-block;
+	}
+
+textarea {
+	line-height: normal;
+}
+
+/* contact */
+.alinea {
+	text-indent: 40px;
+}
+
+/* lessons */
+.lesson-list {
+    padding-left: 0 !important;
+}
+
+.btn-default {
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 0px 4px 4px 0;
+}
