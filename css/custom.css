@@ -36,3 +36,8 @@ textarea {
     text-decoration: none;
     border-radius: 0px 4px 4px 0;
 }
+
+/* user */
+.user-form {
+	list-style-type: none;
+}

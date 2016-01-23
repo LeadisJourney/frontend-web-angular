@@ -16,8 +16,12 @@ Leadis.config(['$routeProvider', function ($routeProvider) {
     .when("/contact", {
         templateUrl: "contact.html",
         controller: "contactController"
-    }).
-    otherwise({
+    })
+    .when("/user", {
+        templateUrl: "user.html",
+        controller: "userController"
+    })
+    .otherwise({
         redirectTo: '/home'
     });
 }]);
