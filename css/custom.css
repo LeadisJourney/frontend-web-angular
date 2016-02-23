@@ -41,3 +41,10 @@ textarea {
 .user-form {
 	list-style-type: none;
 }
+
+/* home */
+li.btn {
+	display: block;
+	width: inherit;
+	margin-top: 4px;
+}

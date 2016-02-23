@@ -5,6 +5,13 @@ LeadisControllers.controller('homeController', ['$scope', function ($scope) {
 	$scope.results = "output";
 	$scope.inputs = "";
 	$scope.changeExerciseButton = "Change";
+	$scope.saveExerciseButton = "Save";
+	$scope.loadExerciseButton = "Load";
+	$scope.eraseExerciseButton = "Erase All";
+
+	//TODO : bind data to user's database
+	var data = null;
+	var nodata = "No data found to load";
 
 	$scope.currentExercise = null;
 	var exercises = $scope.exercises = [];
@@ -23,7 +30,25 @@ LeadisControllers.controller('homeController', ['$scope', function ($scope) {
 	$scope.showExercise = function(exercise) {
 		$scope.currentExercise = exercise;
 	};
-	$scope.showPanelExercise = function(){
+
+	$scope.showPanelExercise = function() {
 		$scope.currentExercise = null;
-	}
+	};
+
+	//Save inputs in user's data
+	$scope.saveExercise = function() {
+		data = $scope.inputs;
+	};
+
+	//Load inputs from user's data
+	$scope.loadExercise = function() {
+		if (data == null || data == "")
+			alert(nodata);
+		$scope.inputs = data;
+	};
+
+	//Erase inputs in user's data
+	$scope.eraseExercise = function() {
+		$scope.inputs = "";
+	};
 }]);

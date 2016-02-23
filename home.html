@@ -14,13 +14,15 @@
 		<a class="btn btn-default" ng-click="showPanelExercise()">{{ changeExerciseButton }}</a>
 		{{ currentExercise.title }}
 	</h3>
-	<form>
-		<textarea rows="5" cols="60" ng-model="inputs"></textarea>
+	<form class="row">
+		<textarea class="col-md-8" rows="5" cols="60" ng-model="inputs"></textarea>
+		<ul class="col-md-4">
+			<li class="btn btn-default" ng-click="saveExercise()">{{ saveExerciseButton }}</li>
+			<li class="btn btn-default" ng-click="loadExercise()">{{ loadExerciseButton }}</li>
+			<li class="btn btn-default" ng-click="eraseExercise()">{{ eraseExerciseButton }}</li>
+		</ul>
 	</form>
 	</br>
-	<p>
-		{{ results }}
-	</p>
-
+	<p> {{ results }} </p>
 	<p> {{ inputs }} </p>
 </article>
