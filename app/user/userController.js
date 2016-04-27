@@ -37,14 +37,32 @@ LeadisControllers.controller('userController', ['$scope', function ($scope) {
 	{
 		if (checkDataForm() == false)
 			alert(alertMessage);
-		$http.post('/api/account', newUser);
+		$http.post('163.5.84.111/v0.1/api/account', newUser).success(function(data) {
+			if (data.success)
+				alert("success");
+			else
+				alert("fail");
+		}).error(function() {
+		    alert("An error occured");
+		});
 	};
 
+	/**
+	Get account by Id
+	{
+	  "Email": "user@example.com",
+	  "Name": "Smith",
+	  "FirstName": "John",
+	  "Pseudo": "Utilisateur"
+	}
+	**/
 	$scope.login_user = function()
 	{
-		if (loginInfo.Pseudo && loginInfo.Password)
+		if (!(loginInfo.Pseudo && loginInfo.Password))
 			alert(alertMessage);
-//		$http.get('/api/account', loginInfo);
+		$http.get('163.5.84.111/v0.1/api/account/:id', loginInfo).then(function(response) {
+          $scope.details = response.data;
+        });
 	};
 
 	$scope.edit_user_info = function()

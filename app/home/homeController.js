@@ -2,7 +2,6 @@
 
 LeadisControllers.controller('homeController', ['$scope', function ($scope) {
 	$scope.message = "Exercices";
-	$scope.results = "output";
 	$scope.inputs = "";
 	$scope.changeExerciseButton = "Change";
 	$scope.saveExerciseButton = "Save";
@@ -21,10 +20,12 @@ LeadisControllers.controller('homeController', ['$scope', function ($scope) {
 	var title3 = "Exercice 3 : Les tableaux";
 	var title4 = "Exercice 4 : Les pointeurs";
 
-	exercises.push({title: title1, value: 1});
-	exercises.push({title: title2, value: 2});
-	exercises.push({title: title3, value: 3});
-	exercises.push({title: title4, value: 4});
+	var results = "output";
+
+	exercises.push({title: title1, value: 1, results: results});
+	exercises.push({title: title2, value: 2, results: results});
+	exercises.push({title: title3, value: 3, results: results});
+	exercises.push({title: title4, value: 4, results: results});
 
 	//Set active exercise
 	$scope.showExercise = function(exercise) {

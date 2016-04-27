@@ -48,3 +48,11 @@ li.btn {
 	width: inherit;
 	margin-top: 4px;
 }
+
+canvas.canvas {
+	width: 400px;
+	height: 200px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+}

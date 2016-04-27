@@ -6,10 +6,10 @@
 	<ul class="user-form col-md-6">
 		<li><h4> {{ login }} </h4></li>
 		<li>
-			<input ng-model="loginInfo.Pseudo" placeholder="Pseudo"/>
+			<input type=TEXT ng-model="loginInfo.Pseudo" placeholder="Pseudo"/>
 		</li>
 		<li>
-			<input ng-model="loginInfo.Password" placeholder="Password"/>
+			<input type=PASSWORD ng-model="loginInfo.Password" placeholder="Password"/>
 		</li>
 			<li>
 			<div class="btn btn-default" ng-click="login_user()">Submit</div>
@@ -18,19 +18,19 @@
 	<ul class="user-form col-md-6">
 		<li><h4> {{ register }} </h4></li>
 		<li>
-			<input ng-model="newUser.Pseudo" placeholder="Pseudo"/>
+			<input type=TEXT ng-model="newUser.Pseudo" placeholder="Pseudo"/>
 		</li>
 		<li>
-			<input ng-model="newUser.Password" placeholder="Password"/>
+			<input type=PASSWORD ng-model="newUser.Password" placeholder="Password"/>
 		</li>
 		<li>
-			<input ng-model="newUser.Email" placeholder="Email"/>
+			<input type=TEXT ng-model="newUser.Email" placeholder="Email"/>
 		</li>
 		<li>
-			<input ng-model="newUser.FirstName" placeholder="FirstName"/>
+			<input type=TEXT ng-model="newUser.FirstName" placeholder="FirstName"/>
 		</li>
 		<li>
-			<input ng-model="newUser.Name" placeholder="Name"/>
+			<input type=TEXT ng-model="newUser.Name" placeholder="Name"/>
 		</li>
 		<li>
 			<div class="btn btn-default" ng-click="create_user()">Submit</div>
