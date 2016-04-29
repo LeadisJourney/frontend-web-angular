@@ -4,12 +4,15 @@ LeadisControllers.controller('homeController', ['$scope', function ($scope) {
 	$scope.message = "Exercices";
 	$scope.inputs = "";
 	$scope.changeExerciseButton = "Change";
+	$scope.launchExerciseButton = "Compile and Execute";
 	$scope.saveExerciseButton = "Save";
 	$scope.loadExerciseButton = "Load";
 	$scope.eraseExerciseButton = "Erase All";
 
 	//TODO : bind data to user's database
-	var data = null;
+	$scope.user = {};
+	$scope.user.inputs = [];
+	$scope.user.data = [];
 	var nodata = "No data found to load";
 
 	$scope.currentExercise = null;
@@ -36,20 +39,25 @@ LeadisControllers.controller('homeController', ['$scope', function ($scope) {
 		$scope.currentExercise = null;
 	};
 
+	//Send a request to API with the user's input to compile it
+	$scope.launchExercise = function() {
+		//  TODO
+	}
+
 	//Save inputs in user's data
 	$scope.saveExercise = function() {
-		data = $scope.inputs;
+		$scope.user.data[$scope.currentExercise.value] = $scope.user.inputs[$scope.currentExercise.value];
 	};
 
 	//Load inputs from user's data
 	$scope.loadExercise = function() {
-		if (data == null || data == "")
+		if ($scope.user.data[$scope.currentExercise.value] == null || $scope.user.data[$scope.currentExercise.value] == "")
 			alert(nodata);
-		$scope.inputs = data;
+		$scope.user.inputs[$scope.currentExercise.value] = $scope.user.data[$scope.currentExercise.value];
 	};
 
 	//Erase inputs in user's data
 	$scope.eraseExercise = function() {
-		$scope.inputs = "";
+		$scope.user.inputs[$scope.currentExercise.value] = "";
 	};
 }]);

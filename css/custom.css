@@ -42,12 +42,12 @@ textarea {
 	list-style-type: none;
 }
 
-/* home */
+/* home
 li.btn {
 	display: block;
 	width: inherit;
 	margin-top: 4px;
-}
+} */
 
 canvas.canvas {
 	width: 400px;
