@@ -6,6 +6,7 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 	$scope.login = "login";
 	$scope.edit = "edit account infos";
 	$scope.user = null;
+	$scope.details = "vide";
 
 	var alertMessage = "please fill in the form correctly.";
 
@@ -37,13 +38,14 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 	{
 		if (checkDataForm() == false)
 			alert(alertMessage);
-		$http.post('163.5.84.111/v0.1/api/account', newUser).success(function(data) {
+		$http.post('http://163.5.84.111:2222/v0.1/api/account', newUser).success(function(data) {
+			alert("hum");
 			if (data.success)
 				alert("success");
 			else
 				alert("fail");
-		}).error(function() {
-		    alert("An error occured");
+		}).error(function(a, err) {
+			alert("Error: " + err);
 		});
 	};
 //	Get account by Id
@@ -55,11 +57,29 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 //	}
 	$scope.login_user = function()
 	{
-		if (!(loginInfo.Pseudo && loginInfo.Password))
-			alert(alertMessage);
-		$http.get('163.5.84.111/v0.1/api/account/:id', loginInfo).then(function(response) {
-          $scope.details = response.data;
-        });
+		$http({
+			method: 'GET',
+			url: 'http://163.5.84.111:2222/v0.1/api/account/1'
+		}).then(function successCallback(response) {
+			alert("hum");
+        	$scope.details = response.data;
+		  }, function errorCallback(response) {
+			alert("Error: " + response.statusText);
+		  });
+
+		// $http.get('http://163.5.84.111:2222/v0.1/api/account/1').success(function(response) {
+		// 	alert("hum");
+  //       	$scope.details = response.data;
+  //       }).error(function(a, err) {
+		// 	alert("Error: " + err);
+		// });
+
+		// if (!(loginInfo.Pseudo && loginInfo.Password))
+		// 	alert(alertMessage);
+		// $http.get('http://163.5.84.111:2222/v0.1/api/account/:id', loginInfo).then(function(response) {
+		// 	alert("hum");
+  //       	$scope.details = response.data;
+  //       });
 	};
 
 	$scope.edit_user_info = function()
