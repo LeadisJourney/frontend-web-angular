@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript">
+function getRequest(url) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      alert(this.responseText);
+    }
+  };
+  xhttp.open("GET", url, true); // true = asynchronous
+  xhttp.send();
+}
+getRequest("get_example.php");
+</script>
+</body>
+</html>
