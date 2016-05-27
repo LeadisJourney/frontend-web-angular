@@ -1,0 +1,8 @@
+<?php
+$contents = file_get_contents("http://127.0.0.1:2222/v0.1/api/account/1");
+if ($contents !== FALSE) {
+	echo $contents;
+} else {
+	echo "Manon a des merge conflicts!";
+}
+?>
