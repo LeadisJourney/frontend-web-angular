@@ -11,9 +11,17 @@
 		<li>
 			<input type=PASSWORD ng-model="loginInfo.Password" placeholder="Password"/>
 		</li>
-			<li>
+		<li>
 			<div class="btn btn-default" ng-click="login_user()">Submit</div>
 		</li>
+		<li>
+			<div class="btn btn-default" ng-click="login_user(1)">View infos : user 1</div>
+		</li>
+		<article ng-show="details.Pseudo">
+		<li> {{ details.FirstName }} {{ details.Name }} </li>
+		<li> Email : {{ details.Email }} </li>
+		<li> Pseudo : {{ details.Pseudo }} </li>
+		</article>
 		<li> {{ details }} </li>
 	</ul>
 	<ul class="user-form col-md-6">
