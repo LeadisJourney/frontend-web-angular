@@ -1,14 +1,33 @@
 ﻿<h2>
-    {{ message }}
+	{{ message }}
 </h2>
-
 </br>
-<form>
-	<textarea rows="5" cols="60" ng-model="inputs"></textarea>
-</form>
-</br>
-<p>
-	{{ results }}
-</p>
 
-<p> {{ inputs }} </p>
+<article ng-show="!currentExercise">
+	<article ng-show="exercises.length" class="col-md-3 lesson-list">
+		<a ng-repeat="exercise in exercises" class="btn btn-default" ng-click="showExercise(exercise)">{{ exercise.title }}</a>
+	</article>
+</article>
+
+<article ng-show="currentExercise">
+	<div class="row">
+		<h3>
+			<a class="btn btn-default" ng-click="showPanelExercise()">{{ changeExerciseButton }}</a>
+			{{ currentExercise.title }}
+		</h3>
+		<form class="row col-md-6">
+			<textarea class="col-md-12 col-sm-8" rows="5" cols="60" ng-model="user.inputs[currentExercise.value]"></textarea>
+			<ul class="col-md-6 col-sm-4">
+				<li class="btn btn-default" ng-click="saveExercise()">{{ saveExerciseButton }}</li>
+				<li class="btn btn-default" ng-click="loadExercise()">{{ loadExerciseButton }}</li>
+				<li class="btn btn-default" ng-click="eraseExercise()">{{ eraseExerciseButton }}</li>
+				<li class="btn btn-default" ng-click="launchExercise()">{{ launchExerciseButton }}</li>
+			</ul>
+		</form>
+		<div class="col-md-6">
+			<canvas id="canvas" class="canvas"></canvas>
+			<p> {{ currentExercise.results }} </p>
+			<p> {{ inputs }} </p>
+		</div>
+	</div>
+</article>

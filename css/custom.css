@@ -36,3 +36,23 @@ textarea {
     text-decoration: none;
     border-radius: 0px 4px 4px 0;
 }
+
+/* user */
+.user-form {
+	list-style-type: none;
+}
+
+/* home
+li.btn {
+	display: block;
+	width: inherit;
+	margin-top: 4px;
+} */
+
+canvas.canvas {
+	width: 400px;
+	height: 200px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+}

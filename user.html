@@ -1,0 +1,69 @@
+<h2>
+	{{ message }}
+</h2>
+
+<article ng-show="!user.Pseudo">
+	<ul class="user-form col-md-6">
+		<li><h4> {{ login }} </h4></li>
+		<li>
+			<input type=TEXT ng-model="loginInfo.Pseudo" placeholder="Pseudo"/>
+		</li>
+		<li>
+			<input type=PASSWORD ng-model="loginInfo.Password" placeholder="Password"/>
+		</li>
+		<li>
+			<div class="btn btn-default" ng-click="login_user()">Submit</div>
+		</li>
+		<li>
+			<div class="btn btn-default" ng-click="login_user(1)">View infos : user 1</div>
+		</li>
+		<article ng-show="details.Pseudo">
+		<li> {{ details.FirstName }} {{ details.Name }} </li>
+		<li> Email : {{ details.Email }} </li>
+		<li> Pseudo : {{ details.Pseudo }} </li>
+		</article>
+		<li> {{ details }} </li>
+	</ul>
+	<ul class="user-form col-md-6">
+		<li><h4> {{ register }} </h4></li>
+		<li>
+			<input type=TEXT ng-model="newUser.Pseudo" placeholder="Pseudo"/>
+		</li>
+		<li>
+			<input type=PASSWORD ng-model="newUser.Password" placeholder="Password"/>
+		</li>
+		<li>
+			<input type=TEXT ng-model="newUser.Email" placeholder="Email"/>
+		</li>
+		<li>
+			<input type=TEXT ng-model="newUser.FirstName" placeholder="FirstName"/>
+		</li>
+		<li>
+			<input type=TEXT ng-model="newUser.Name" placeholder="Name"/>
+		</li>
+		<li>
+			<div class="btn btn-default" ng-click="create_user()">Submit</div>
+		</li>
+	</ul>
+</article>
+<article ng-show="user.Pseudo">
+	<p> bonjour {{ user.Pseudo }} </p>
+	<ul class="user-form col-md-6">
+		<li><h4> {{ edit }} </h4></li>
+		<li>
+			<input ng-model="editInfo.Password" placeholder="Password"/>
+		</li>
+		<li>
+			<input ng-model="editInfo.Email" placeholder="Email"/>
+		</li>
+		<li>
+			<input ng-model="editInfo.FirstName" placeholder="FirstName"/>
+		</li>
+		<li>
+			<input ng-model="editInfo.Name" placeholder="Name"/>
+		</li>
+		<li>
+			<div class="btn btn-default" ng-click="edit_user_info()">Submit</div>
+		</li>
+	</ul>
+</article>
