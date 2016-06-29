@@ -15,7 +15,8 @@
 			<div class="btn btn-default" ng-click="login_user()">Submit</div>
 		</li>
 		<li>
-			<div class="btn btn-default" ng-click="login_user(1)">View infos : user 1</div>
+			<input type=NUMBER ng-model="nbvar" placeholder="user nb"/>
+			<div class="btn btn-default" ng-click="infos_user(nbvar)">View infos : user {{nbvar}}</div>
 		</li>
 		<article ng-show="details.Pseudo">
 		<li> {{ details.FirstName }} {{ details.Name }} </li>
@@ -23,6 +24,7 @@
 		<li> Pseudo : {{ details.Pseudo }} </li>
 		</article>
 		<li> {{ details }} </li>
+		<li> {{ usertoken }} </li>
 	</ul>
 	<ul class="user-form col-md-6">
 		<li><h4> {{ register }} </h4></li>

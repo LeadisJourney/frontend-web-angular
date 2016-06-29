@@ -42,6 +42,19 @@ LeadisControllers.controller('homeController', ['$scope', function ($scope) {
 	//Send a request to API with the user's input to compile it
 	$scope.launchExercise = function() {
 		//  TODO
+		$http({
+			method: 'POST',
+			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/...',
+			dataType:'jsonp',
+			data: {
+			 			"Pseudo" : $scope.user.data[$scope.currentExercise.value]
+			 		}
+			}).then(function successCallback(response) {
+				alert("success");
+	       		$scope.currentExercise.results = response.data;
+			}, function errorCallback(response) {
+				alert("Error: " + response.statusText + response.Message);
+			});
 	}
 
 	//Save inputs in user's data
