@@ -2,11 +2,11 @@
 	{{ message }}
 </h2>
 
-<article ng-show="!user.Pseudo">
+<article ng-show="!user.Email">
 	<ul class="user-form col-md-6">
 		<li><h4> {{ login }} </h4></li>
 		<li>
-			<input type=TEXT ng-model="loginInfo.Email" placeholder="Email"/>
+			<input type=EMAiL ng-model="loginInfo.Email" placeholder="Email"/>
 		</li>
 		<li>
 			<input type=PASSWORD ng-model="loginInfo.Password" placeholder="Password"/>
@@ -14,7 +14,7 @@
 		<li>
 			<div class="btn btn-default" ng-click="login_user()">Submit</div>
 		</li>
-		<li>
+<!-- 		<li>
 			<input type=NUMBER ng-model="nbvar" placeholder="user nb"/>
 			<div class="btn btn-default" ng-click="infos_user(nbvar)">View infos : user {{nbvar}}</div>
 		</li>
@@ -24,7 +24,7 @@
 		<li> Pseudo : {{ details.Pseudo }} </li>
 		</article>
 		<li> {{ details }} </li>
-		<li> {{ usertoken }} </li>
+		<li> {{ usertoken }} </li> -->
 	</ul>
 	<ul class="user-form col-md-6">
 		<li><h4> {{ register }} </h4></li>
@@ -35,7 +35,7 @@
 			<input type=PASSWORD ng-model="newUser.Password" placeholder="Password"/>
 		</li>
 		<li>
-			<input type=TEXT ng-model="newUser.Email" placeholder="Email"/>
+			<input type=EMAIL ng-model="newUser.Email" placeholder="Email"/>
 		</li>
 		<li>
 			<input type=TEXT ng-model="newUser.FirstName" placeholder="FirstName"/>
@@ -48,21 +48,21 @@
 		</li>
 	</ul>
 </article>
-<article ng-show="user.Pseudo">
-	<p> bonjour {{ user.Pseudo }} </p>
+<article ng-show="user.Email">
+	<p> bonjour {{ user.Email }} </p>
 	<ul class="user-form col-md-6">
 		<li><h4> {{ edit }} </h4></li>
 		<li>
-			<input ng-model="editInfo.Password" placeholder="Password"/>
+			<input type=PASSWORD ng-model="editInfo.Password" placeholder="Password"/>
 		</li>
 		<li>
-			<input ng-model="editInfo.Email" placeholder="Email"/>
+			<input type=EMAIL ng-model="editInfo.Email" placeholder="Email"/>
 		</li>
 		<li>
-			<input ng-model="editInfo.FirstName" placeholder="FirstName"/>
+			<input type=TEXT ng-model="editInfo.FirstName" placeholder="FirstName"/>
 		</li>
 		<li>
-			<input ng-model="editInfo.Name" placeholder="Name"/>
+			<input type=TEXT ng-model="editInfo.Name" placeholder="Name"/>
 		</li>
 		<li>
 			<div class="btn btn-default" ng-click="edit_user_info()">Submit</div>

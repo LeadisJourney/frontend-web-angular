@@ -19,8 +19,40 @@
 	    <script src="app/contact/contactController.js"></script>
 	    <script src="app/lessons/lessonsController.js"></script>
 		<script src="app/user/userController.js"></script>
+		<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+		<script type="text/javascript" src="webgl-utils.js"></script>
+		<script id="shader-fs" type="x-shader/x-fragment">
+		    precision mediump float;
+
+		    varying vec4 vColor;
+
+		    void main(void) {
+		        gl_FragColor = vColor;
+		    }
+		</script>
+
+		<script id="shader-vs" type="x-shader/x-vertex">
+		    attribute vec3 aVertexPosition;
+		    attribute vec4 aVertexColor;
+
+		    uniform mat4 uMVMatrix;
+		    uniform mat4 uPMatrix;
+
+		    varying vec4 vColor;
+
+		    void main(void) {
+		        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+		        vColor = aVertexColor;
+		    }
+		</script>
+		<script type="text/javascript" src="cases.js"></script>
+		<script type="text/javascript" src="ObjectManager.js"></script>
+		<script type="text/javascript" src="shaderManager.js"></script>
+		<script type="text/javascript" src="3DMaths.js"></script>
+		<script type="text/javascript" src="webGLGeneral.js"></script>
+
 	</head>
-	<body ng-app="Leadis">
+	<body ng-app="Leadis" onload="webGLStart();">
 		<header>
 			<nav class="navbar navbar-inverse navbar-fixed-top">
 				<div class="container-fluid">

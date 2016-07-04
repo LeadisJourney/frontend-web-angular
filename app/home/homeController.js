@@ -49,9 +49,14 @@ LeadisControllers.controller('homeController', ['$scope', '$http', function($sco
 	$scope.launchExercise = function() {
 		var code = editor.getSession().getValue();
 		console.log(code);
-		$http.post("http://api-leadisjourney.azurewebsites.net/v0.1/api/...",
-			{code: code}).then(function(result) {console.log(result)}, function(error) {console.log(error)});
-	}
+		$http.post("http://api-leadisjourney.azurewebsites.net/v0.1/api/userexperience", {
+			  "RequestId" : 1456865464,
+			  "Language" : "C",
+			  "Code": "code",
+			  "Type" : "Compilation"
+			}).then(function(result) {console.log(result)},
+			function(error) {console.log(error)});
+	};
 
 	//Save inputs in user's data
 	$scope.saveExercise = function() {
