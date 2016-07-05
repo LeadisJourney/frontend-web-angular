@@ -15,17 +15,18 @@
 			<a class="btn btn-default" ng-click="showPanelExercise()">{{ changeExerciseButton }}</a>
 			{{ currentExercise.title }}
 		</h3>
-		<form class="row col-md-6">
-			<textarea class="col-md-12 col-sm-8" rows="5" cols="60" ng-model="user.inputs[currentExercise.value]"></textarea>
+		<div class="row col-md-6">
+<!-- 		<textarea class="col-md-12 col-sm-8" rows="5" cols="60" ng-model="user.inputs[currentExercise.value]"></textarea> -->
+			<div id="editor" style=" min-height: 200px; border: solid 3px gray;"></div>
 			<ul class="col-md-6 col-sm-4">
 				<li class="btn btn-default" ng-click="saveExercise()">{{ saveExerciseButton }}</li>
 				<li class="btn btn-default" ng-click="loadExercise()">{{ loadExerciseButton }}</li>
 				<li class="btn btn-default" ng-click="eraseExercise()">{{ eraseExerciseButton }}</li>
 				<li class="btn btn-default" ng-click="launchExercise()">{{ launchExerciseButton }}</li>
 			</ul>
-		</form>
+		</div>
 		<div class="col-md-6">
-			<canvas id="canvas" class="canvas"></canvas>
+			<canvas id="lesson04-canvas" class="canvas"></canvas>
 			<p> {{ currentExercise.results }} </p>
 			<p> {{ inputs }} </p>
 		</div>
