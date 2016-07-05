@@ -3,6 +3,7 @@ var lastTime = 0;
 var backR = 0.0;
 var backG = 0.0;
 var backB = 0.0;
+var JSONGame = {};
 
 var trObj = {
 	x: 0,
@@ -18,21 +19,21 @@ var turn = 0;
 
 function getMapSpec()
 {
-	map.x = JSONGameRun.mapX;
-	map.z = JSONGameRun.mapZ;
+	map.x = JSONGame.mapX;
+	map.z = JSONGame.mapZ;
 }
 
 function getElemSpec() {
-	g_elem = JSONGameRun.elemList;
+	g_elem = JSONGame.elemList;
 }
 
 function getLeadisSpec()
 {
 	g_leadis.specGot = true;
-	g_leadis.x = JSONGameRun.leadisX;
-	g_leadis.y = JSONGameRun.leadisY;
-	g_leadis.z = JSONGameRun.leadisZ;
-	g_leadis.movement = JSONGameRun.leadisMovement;
+	g_leadis.x = JSONGame.leadisX;
+	g_leadis.y = JSONGame.leadisY;
+	g_leadis.z = JSONGame.leadisZ;
+	g_leadis.movement = JSONGame.leadisMovement;
 	g_leadis.moveIterator = 0;
 }
 
@@ -241,7 +242,7 @@ function drawScene() {
 
 function initGL(canvas) {
     try {
-        gl = canvas.getContext("experimental-webgl");
+        gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
         gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;
     } catch (e) {
@@ -250,6 +251,8 @@ function initGL(canvas) {
     if (!gl) {
     	alert("Could not initialise WebGL, sorry :-(");
     }
+    else
+    	console.log("gl initialised");
 }
 
 function animate() {
@@ -280,6 +283,13 @@ function tick() {
 	turn += 1;
 }
 
+function launchAnimation(JSONobj)
+{
+	JSONGame = JSONobj;
+	tick();
+	console.log('animation done');
+}
+
 function webGLStart() {
     var canvas = document.getElementById("lesson04-canvas");
 
@@ -289,5 +299,5 @@ function webGLStart() {
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
-    tick();
+    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
 }

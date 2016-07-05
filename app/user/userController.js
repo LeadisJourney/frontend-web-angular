@@ -56,8 +56,14 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 			 			"Name" : newUser.Name,
 			 			"FirstName" : newUser.FirstName
 			 		}
-			}).then(function(result) {console.log(result)},
-			function(error) {console.log(error)});
+			}).then(function(result) {
+				console.log(result)
+				alert("SUCCESS, you can now login");
+			},
+			function(error) {
+				console.log(error)
+				alert("fail ", +error);
+			});
 	};
 
 	$scope.login_user = function()
@@ -66,11 +72,12 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 			"Email" : loginInfo.Email,
 			"Password" : loginInfo.Password
 		}).then(function(result) {
-				console.log(result)
-				$scope.user = {
+			console.log(result)
+			$scope.user = {
 				"Email" : loginInfo.Email,
 				"Password" : loginInfo.Password
 			};
+			$scope.token = result.data;
 		}, function(error) {console.log(error)});
 	};
 

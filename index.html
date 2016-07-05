@@ -21,6 +21,11 @@
 		<script src="app/user/userController.js"></script>
 		<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
 		<script type="text/javascript" src="webgl-utils.js"></script>
+		<script type="text/javascript" src="webGLGeneral.js"></script>
+		<script type="text/javascript" src="cases.js"></script>
+		<script type="text/javascript" src="ObjectManager.js"></script>
+		<script type="text/javascript" src="shaderManager.js"></script>
+		<script type="text/javascript" src="3DMaths.js"></script>
 		<script id="shader-fs" type="x-shader/x-fragment">
 		    precision mediump float;
 
@@ -45,11 +50,6 @@
 		        vColor = aVertexColor;
 		    }
 		</script>
-		<script type="text/javascript" src="cases.js"></script>
-		<script type="text/javascript" src="ObjectManager.js"></script>
-		<script type="text/javascript" src="shaderManager.js"></script>
-		<script type="text/javascript" src="3DMaths.js"></script>
-		<script type="text/javascript" src="webGLGeneral.js"></script>
 
 	</head>
 	<body ng-app="Leadis" onload="webGLStart();">
@@ -98,6 +98,10 @@
 		<div class="jumbotron row">
 			<div ng-view></div>
 		</div>
-
+		<div class="col-md-6">
+			<canvas id="lesson04-canvas" style="border: none;" width="500" height="500"></canvas>
+			<p> {{ currentExercise.results }} </p>
+			<p> {{ inputs }} </p>
+		</div>
 	</body>
 </html>
