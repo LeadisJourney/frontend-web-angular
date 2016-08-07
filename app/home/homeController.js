@@ -13,7 +13,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', function($sco
 	$scope.saveExerciseButton = "Save";
 	$scope.loadExerciseButton = "Load";
 	$scope.eraseExerciseButton = "Erase All";
-	$scope.token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InBzZXVAcHNldS5wc2V1IiwiVXNlcklkIjo3LCJVc2VyRW1haWwiOiJwc2V1QHBzZXUucHNldSIsIm5iZiI6MTQ2NzcwNTg1NywiZXhwIjoxNDk5MjQxODU3LCJpYXQiOjE0Njc3MDU4NTcsImlzcyI6Imh0dHA6Ly9sZWFkaXNqb3VybmV5LmZyIiwiYXVkIjoibm9vYnMifQ.Xbxax94VhaBUCNTOeJxeFStUTdMXtZolg8qrN9fOsN-XdH197_SYdusB4miWgDqqXu-XIBLGfvaIE7q5KUr3jIPDf3iFB2ZX5tcBMbYN22yRBCubln_Vd8YiBBlACjwL99oQz-DhQcgZnq8hnSvvXFraJKc-6vt_hMKw1Uj6dVBxy4P-z81xT8kopdM9OrxWq0-lfkQPBZ778uwAORTkqGrgWQ1Ca7C3zXjA-Pn1m97hS7RKsZEEa68P_jQp0gYoswhfKqOXoHqSscEeeXQnlMUDgw-61Esh6WJzA5FgGKAEqroz3oBSIm_cB3NLOT1IKn3e9VyOuXUhpKCyUH0WVg";
+	$scope.token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InBzZXVAcHNldS5wc2V1IiwiVXNlcklkIjo3LCJVc2VyRW1haWwiOiJwc2V1QHBzZXUucHNldSIsIm5iZiI6MTQ3MDQxMDc0NywiZXhwIjoxNTAxOTQ2NzQ3LCJpYXQiOjE0NzA0MTA3NDcsImlzcyI6Imh0dHA6Ly9sZWFkaXNqb3VybmV5LmZyIiwiYXVkIjoibm9vYnMifQ.BMk1B_zBcVtN1hTxy6AJwV4vezP7AL-Wv8NgSxLPuHWHY3JhiK65DjXYJg2OFCzjrD1uf20YVRxiKm4oBfNa-BtO4lMPL1l131KoBZWVidfbyXKQ3hHy3Jy-mpTRtRR8OMSr-8LP17apXfNNVKUwhS3drWGfls8senKsD6YnQDtdGwQG7V2Mq4i6UohbgzsRnyz3ATYXO9BWBiPg9jWg44_Ybdca2qmXXbFsem8eOgmuQ1KvAlKgrLeJyICqHOdmeVI-MMoxTtO7BodtdmnaHc5xKBn557jcVpNVLkZYHXK6liDqWOCaG1p7lmKOVBoGc_iTMoZLdkFj072JT0FVQw";
 
 	//TODO : bind data to user's database
 	$scope.user = {};
@@ -31,7 +31,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', function($sco
 	var exo2 = "les_meilleures(int resultats[2], int a, int b, int c) { /*your code here*/ }";
 	var exo3 = "typedef struct { int x; int y; } position;\ntypedef enum { SOL = 0, MUR = 1, ARRIVEE = 2 } type;\nvoid\tdeplacement_haut();\nvoid\tdeplacement_bas();\nvoid\tdeplacement_gauche();\nvoid\tdeplacement_droite();\n/* Exemple : 0 : vide 1 : mur 2 : arrivee 1 1 1 1 1 1 1 1 1 1 1 0 0 0 2 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1 1 0 1 1 1 1 1 0 0 1 1 0 0 0 1 0 0 0 0 1 1 0 0 0 1 0 0 0 0 1 1 1 1 0 1 0 1 1 1 1 1 0 0 0 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 */\n/* A supprimer */\n#include <stdlib.h>\n#include <time.h>\n/* A supprimer */\nvoid\tla_sortie(type const labyrinthe[10][10], position const *leadis) \n{\n\t/* A supprimer */ srand(time(NULL)); (void)labyrinthe; (void)leadis; if (rand() % 2) deplacement_gauche(); else deplacement_droite();deplacement_haut();deplacement_haut();deplacement_haut();deplacement_gauche();deplacement_gauche();deplacement_haut();deplacement_haut();deplacement_haut();deplacement_droite();deplacement_droite();deplacement_droite();deplacement_haut();/* A supprimer */\n}";
 
-	var results = "output";
+	var results = "";
 
 	exercises.push({title: title1, value: 1, results: results, exo: exo1});
 	exercises.push({title: title2, value: 2, results: results, exo: exo2});
@@ -55,10 +55,11 @@ LeadisControllers.controller('homeController', ['$scope', '$http', function($sco
 		var header = 'Bearer '+$scope.token;
 		console.log(header);
 		$http.post("http://api-leadisjourney.azurewebsites.net/v0.1/api/userexperience", {
-			  "RequestId" : "14",
-			  "Language" : "C",
-			  "Code": code,
-			  "Type" : "Execution"
+				"RequestId" : "14",
+				"Language" : "C",
+				"Code": code,
+				"Type" : "Compilation",
+				"Exercise" : "la_meilleure"
 			}, {headers: {'Authorization' : header}}).then(function(result) {
 				console.log(result)
 				$scope.currentExercise.results = result.data.result;
@@ -66,7 +67,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', function($sco
 				// 	launchAnimation(JSONGameRun);
 				// }
 			},
-			function(error) {console.log(error)});
+			function(error) {console.log("Error : "); console.log(error)});
 	};
 
 	//Save inputs in user's data
