@@ -1,6 +1,6 @@
 'use strict';
 
-LeadisControllers.controller('userController', ['$scope', '$http', function($scope, $http) {
+LeadisControllers.controller('userController', ['$scope', '$http', '$localStorage', function($scope, $http, $localStorage) {
 	$scope.message = "user";
 	$scope.login = "login";
 	$scope.register = "register";
@@ -8,7 +8,7 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 	$scope.user = null;
 	$scope.details = "vide";
 	$scope.nbvar = 1;
-	$scope.usertoken = "token";
+//	$scope.usertoken = "token";
 
 	var alertMessage = "please fill in the form correctly.";
 
@@ -77,7 +77,9 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 				"Email" : loginInfo.Email,
 				"Password" : loginInfo.Password
 			};
-			$scope.token = result.data;
+			$localStorage.token = result.data;
+			console.log("token got : "+result.data);
+			console.log("token got : "+$localStorage.token);
 		}, function(error) {console.log(error)});
 	};
 

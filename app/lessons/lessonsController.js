@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-LeadisControllers.controller('lessonsController', ['$scope', function ($scope) {
+LeadisControllers.controller('lessonsController', ['$scope', '$localStorage', function ($scope, $localStorage) {
 	$scope.message = "welcome";
 
     // Defaults

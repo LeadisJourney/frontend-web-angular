@@ -35,6 +35,18 @@ textarea {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 0px 4px 4px 0;
+	width: 100%;
+	text-align: left;
+}
+
+.btn-half {
+	width: 50% !important;
+	float: left;
+}
+
+.btn-form {
+	width: 60% !important;
+	float: left;
 }
 
 /* user */

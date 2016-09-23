@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var Leadis = angular.module('Leadis', ['ngRoute', 'LeadisControllers']);
+var Leadis = angular.module('Leadis', ['ngRoute', 'LeadisControllers', 'ngStorage']);
 
 Leadis.config(['$routeProvider', function ($routeProvider) {
 
