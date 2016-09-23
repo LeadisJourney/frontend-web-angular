@@ -2,8 +2,8 @@
 
 LeadisControllers.controller('userController', ['$scope', '$http', function($scope, $http) {
 	$scope.message = "user";
-	$scope.register = "register";
 	$scope.login = "login";
+	$scope.register = "register";
 	$scope.edit = "edit account infos";
 	$scope.user = null;
 	$scope.details = "vide";
@@ -11,6 +11,11 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 	$scope.usertoken = "token";
 
 	var alertMessage = "please fill in the form correctly.";
+
+	var newLogin = $scope.newLogin = {
+										"Email": null,
+										"Password": null,
+									};
 
 	var newUser = $scope.newUser = {
 										"Pseudo" : null, 
@@ -24,11 +29,6 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 										"Email": null,
 										"FirstName": null,
 										"Name": null,
-										"Password": null,
-									};
-
-	var newLogin = $scope.newLogin = {
-										"Email": null,
 										"Password": null,
 									};
 
@@ -46,11 +46,9 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 		if (checkDataForm() == false)
 			alert(alertMessage);
 
-		$scope.login = "json=" + encodeURI(JSON.stringify([newUser]));
 		$http({
 			method: 'POST',
 			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/account',
-			dataType:'jsonp',
 			data: {
 			 			"Pseudo" : newUser.Pseudo,
 			 			"Password" : newUser.Password,
@@ -58,54 +56,35 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 			 			"Name" : newUser.Name,
 			 			"FirstName" : newUser.FirstName
 			 		}
-			}).then(function successCallback(response) {
-				alert("success");
-	       		$scope.details = response.data;
-			}, function errorCallback(response) {
-				alert("Error: " + response.statusText + response.Message);
+			}).then(function(result) {
+				console.log(result)
+				alert("SUCCESS, you can now login");
+			},
+			function(error) {
+				console.log(error)
+				alert("fail ", +error);
 			});
 	};
 
 	$scope.login_user = function()
 	{
-		// use $.param jQuery function to serialize data from JSON 
-		// var data = $.param({
-		// 	Email: newLogin.Email,
-		// 	Password: newLogin.Password
-		// });
-		// var config = {
-		// 	headers : {
-		// 		'Content-Type': 'application/json'
-		// 	}
-		// }
-
-		// $http.post('http://api-leadisjourney.azurewebsites.net/v0.1/api/account/login', data, config)
-		// .then(function successCallback(response) {
-		// 	$scope.usertoken = response.Token;
-		// }, function errorCallback(response) {
-		// 	alert("Error: " + response.statusText + response.Message);
-		// });
-
-//
-
-		$http({
-			method: 'POST',
-			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/account/login',
-			dataType:'jsonp',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			data: {
-			 			"Email" : newLogin.Email,
-			 			"Password" : newLogin.Password
-					}
-		})
-		.then(function successCallback(response) {
-			$scope.usertoken = response.Token;
-		}, function errorCallback(response) {
-			alert("Error: " + response.statusText + response.Message);
-		});
+		$http.post('http://api-leadisjourney.azurewebsites.net/v0.1/api/account/login', {
+			"Email" : loginInfo.Email,
+			"Password" : loginInfo.Password
+		}).then(function(result) {
+			console.log(result)
+			$scope.user = {
+				"Email" : loginInfo.Email,
+				"Password" : loginInfo.Password
+			};
+			$scope.token = result.data;
+		}, function(error) {console.log(error)});
 	};
+
+	$scope.logout_user = function()
+	{
+		$scope.user = null;
+	}
 
 	$scope.infos_user = function(nb)
 	{
@@ -120,5 +99,17 @@ LeadisControllers.controller('userController', ['$scope', '$http', function($sco
 	};
 
 	$scope.edit_user_info = function()
-	{	}
+	{
+		$http({
+			method: 'POST',
+			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/account',
+			data: {
+				"Email": editInfo.Email,
+				"FirstName": editInfo.FirstName,
+				"Name": editInfo.Name,
+				"Password": editInfo.Password,
+				}
+			}).then(function(result) {console.log(result)},
+			function(error) {console.log(error)});
+	}
 }]);
