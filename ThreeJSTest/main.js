@@ -16,17 +16,21 @@ var windowHalfY = window.innerHeight / 2;
 init();
 animate();
 
+function webglAvailable() {
+		try {
+			var canvas = document.createElement( 'canvas' );
+			return !!( window.WebGLRenderingContext && (
+				canvas.getContext( 'webgl' ) ||
+				canvas.getContext( 'experimental-webgl' ) )
+			);
+		} catch ( e ) {
+			return false;
+		}
+	}
+
 function init() {
 	container = document.createElement('div');
 	document.body.appendChild(container);
-
-	var info = document.createElement('div');
-	info.style.position = 'absolute';
-	info.style.top = '10px';
-	info.style.width = '100%';
-	info.style.textAlign = 'center';
-	info.innerHTML = 'Drag to spin the cube';
-	container.appendChild(info);
 
 	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 	camera.position.y = 150;
@@ -62,19 +66,25 @@ function init() {
 	plane = new THREE.Mesh(geometry, material);
 	scene.add(plane);
 
-	renderer = new THREE.CanvasRenderer();
+	if ( webglAvailable() ) {
+		renderer = new THREE.WebGLRenderer();
+		console.log("renderer webGL");
+	} else {
+		renderer = new THREE.CanvasRenderer();
+		console.log("renderer canvas");
+	}
 	renderer.setClearColor(0xf0f0f0);
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	container.appendChild(renderer.domElement);
 
-	stats = new Stats();
-	container.appendChild(stats.dom);
+	//stats = new Stats();
+	//container.appendChild(stats.dom);
 
 	document.addEventListener('mousedown', onDocumentMouseDown, false);
 	document.addEventListener('touchstart', onDocumentTouchStart, false);
 	document.addEventListener('touchmove', onDocumentTouchMove, false);
-	//
+	
 	window.addEventListener('resize', onWindowResize, false);
 }
 function onWindowResize() {
@@ -124,9 +134,9 @@ function onDocumentTouchMove(event) {
 //
 function animate() {
 	requestAnimationFrame(animate);
-	stats.begin();
+	//stats.begin();
 	render();
-	stats.end();
+	//stats.end();
 }
 function render() {
 	plane.rotation.y = cube.rotation.y += (targetRotation - cube.rotation.y) * 0.05;
