@@ -53,19 +53,22 @@
 	<ul class="user-form col-md-6">
 		<li><h4> {{ edit }} </h4></li>
 		<li>
-			<input type=PASSWORD ng-model="editInfo.Password" placeholder="Password"/>
+			<input class="btn-form" type=PASSWORD ng-model="editInfo.Password" placeholder="Password"/>
 		</li>
 		<li>
-			<input type=EMAIL ng-model="editInfo.Email" placeholder="Email"/>
+			<input class="btn-form" type=EMAIL ng-model="editInfo.Email" placeholder="Email"/>
 		</li>
 		<li>
-			<input type=TEXT ng-model="editInfo.FirstName" placeholder="FirstName"/>
+			<input class="btn-form" type=TEXT ng-model="editInfo.FirstName" placeholder="FirstName"/>
 		</li>
 		<li>
-			<input type=TEXT ng-model="editInfo.Name" placeholder="Name"/>
+			<input class="btn-form" type=TEXT ng-model="editInfo.Name" placeholder="Name"/>
 		</li>
 		<li>
-			<div class="btn btn-default" ng-click="edit_user_info()">Submit</div>
+			<div class="btn btn-default btn-form" ng-click="edit_user_info()">Submit</div>
+		</li>
+		<li>
+			<div class="btn btn-default btn-form" ng-click="logout_user()">Logoff</div>
 		</li>
 	</ul>
 </article>

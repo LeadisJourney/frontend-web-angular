@@ -60,11 +60,3 @@ li.btn {
 	width: inherit;
 	margin-top: 4px;
 } */
-
-canvas.canvas {
-	width: 500px;
-	height: 500px;
-	border-color: black;
-	border-width: 1px;
-	border-style: solid;
-}

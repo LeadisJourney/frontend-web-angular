@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorage', function($scope, $http, $localStorage) {
 	var editor = ace.edit("editor");
@@ -13,10 +13,10 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 	$scope.saveExerciseButton = "Save";
 	$scope.loadExerciseButton = "Load";
 	$scope.eraseExerciseButton = "Erase All";
-	//$scope.token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InBzZXVAcHNldS5wc2V1IiwiVXNlcklkIjo3LCJVc2VyRW1haWwiOiJwc2V1QHBzZXUucHNldSIsIm5iZiI6MTQ3MDQxMDc0NywiZXhwIjoxNTAxOTQ2NzQ3LCJpYXQiOjE0NzA0MTA3NDcsImlzcyI6Imh0dHA6Ly9sZWFkaXNqb3VybmV5LmZyIiwiYXVkIjoibm9vYnMifQ.BMk1B_zBcVtN1hTxy6AJwV4vezP7AL-Wv8NgSxLPuHWHY3JhiK65DjXYJg2OFCzjrD1uf20YVRxiKm4oBfNa-BtO4lMPL1l131KoBZWVidfbyXKQ3hHy3Jy-mpTRtRR8OMSr-8LP17apXfNNVKUwhS3drWGfls8senKsD6YnQDtdGwQG7V2Mq4i6UohbgzsRnyz3ATYXO9BWBiPg9jWg44_Ybdca2qmXXbFsem8eOgmuQ1KvAlKgrLeJyICqHOdmeVI-MMoxTtO7BodtdmnaHc5xKBn557jcVpNVLkZYHXK6liDqWOCaG1p7lmKOVBoGc_iTMoZLdkFj072JT0FVQw";
 
 	//TODO : bind data to user's database
 	$scope.user = {};
+	$scope.user.details = $localStorage.user;
 	$scope.user.token = $localStorage.token;
 	$scope.user.data = [];
 	var nodata = "No data found to load";

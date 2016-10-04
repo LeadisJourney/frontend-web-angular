@@ -5,10 +5,8 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 	$scope.login = "login";
 	$scope.register = "register";
 	$scope.edit = "edit account infos";
-	$scope.user = null;
 	$scope.details = "vide";
-	$scope.nbvar = 1;
-//	$scope.usertoken = "token";
+	$scope.user = $localStorage.user;
 
 	var alertMessage = "please fill in the form correctly.";
 
@@ -73,18 +71,19 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 			"Password" : loginInfo.Password
 		}).then(function(result) {
 			console.log(result)
-			$scope.user = {
+			$localStorage.user = {
 				"Email" : loginInfo.Email,
 				"Password" : loginInfo.Password
 			};
-			$localStorage.token = result.data;
-			console.log("token got : "+result.data);
+			$localStorage.token = result.data.token;
+			console.log("data got : "+result.data);
 			console.log("token got : "+$localStorage.token);
 		}, function(error) {console.log(error)});
 	};
 
 	$scope.logout_user = function()
 	{
+		$localStorage.user = null;
 		$scope.user = null;
 	}
 
