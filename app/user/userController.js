@@ -76,6 +76,7 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 				"Password" : loginInfo.Password
 			};
 			$localStorage.token = result.data.token;
+			$scope.user = $localStorage.user;
 			console.log("data got : "+result.data);
 			console.log("token got : "+$localStorage.token);
 		}, function(error) {console.log(error)});
@@ -84,8 +85,9 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 	$scope.logout_user = function()
 	{
 		$localStorage.user = null;
+		$localStorage.token = null;
 		$scope.user = null;
-	}
+	};
 
 	$scope.infos_user = function(nb)
 	{
@@ -93,7 +95,13 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 			method: 'GET',
 			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/account/'+nb
 		}).then(function successCallback(response) {
-        	$scope.details = response.data;
+        	$localStorage.user = response.data;
+			// {
+			//   "Email": "user@example.com",
+			//   "Name": "Smith",
+			//   "FirstName": "John",
+			//   "Pseudo": "Utilisateur"
+			// }
         }, function errorCallback(response) {
 			alert("Error: " + response.statusText);
 		});
@@ -112,5 +120,5 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 				}
 			}).then(function(result) {console.log(result)},
 			function(error) {console.log(error)});
-	}
+	};
 }]);

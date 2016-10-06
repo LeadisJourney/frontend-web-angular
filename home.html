@@ -1,11 +1,11 @@
-﻿
-<div style="float: right;">
-	<h4 ng-show="user.token">
-		Bienvenue à bord, {{ user.details.Email }} !
-	</h4>
-	<a href="index.html#/user" ng-show="!user.token" class="btn btn-default">
-		Connectez-vous !
-	</a>
+﻿<div style="float: right;">
+    <h4 ng-show="user.token">
+        Bienvenue à bord, {{ user.details.Email }} !
+    </h4>
+    <div ng-show="user.token" class="btn btn-default btn-half stick-right" ng-click="logout_user()">Logoff</div>
+    <a href="index.html#/user" ng-show="!user.token" class="btn btn-default">
+        Connectez-vous !
+    </a>
 </div>
 <h2>
 	{{ message }}

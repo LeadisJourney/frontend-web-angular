@@ -89,4 +89,11 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 		editor.getSession().setValue("");
 		// $scope.user.inputs[$scope.currentExercise.value] = "";
 	};
+
+	$scope.logout_user = function()
+	{
+		$localStorage.user = null;
+		$localStorage.token = null;
+		$scope.user = null;
+	};
 }]);

@@ -21,6 +21,11 @@ LeadisControllers.controller('lessonsController', ['$scope', '$localStorage', fu
 	lessons.push({ title: title1, description: description1, image: null, video: null });
 	lessons.push({ title: title2, description: null, image: null, video: videoPath });
 
+	$scope.user = {};
+	$scope.user.details = $localStorage.user;
+	$scope.user.token = $localStorage.token;
+	$scope.user.data = [];
+
     //Set active lesson or unset if already set
     $scope.showLesson = function(lesson) {
     	if ($scope.activeItem == lesson)
@@ -31,5 +36,12 @@ LeadisControllers.controller('lessonsController', ['$scope', '$localStorage', fu
     	{
 	    	$scope.activeItem = lesson;
 		}
+	};
+
+	$scope.logout_user = function()
+	{
+		$localStorage.user = null;
+		$localStorage.token = null;
+		$scope.user = null;
 	};
 }]);

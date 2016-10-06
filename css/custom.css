@@ -49,9 +49,18 @@ textarea {
 	float: left;
 }
 
+.stick-right {
+	float: right !important;
+}
+
 /* user */
 .user-form {
 	list-style-type: none;
+}
+
+canvas {
+	width: 100% !important;
+	height: 100% !important;
 }
 
 /* home
