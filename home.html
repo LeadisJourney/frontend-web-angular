@@ -1,4 +1,5 @@
-﻿<div style="float: right;">
+﻿
+<div style="float: right;">
 	<h4 ng-show="user.token">
 		Bienvenue à bord, {{ user.details.Email }} !
 	</h4>
@@ -36,7 +37,7 @@
 		</div>
 		<div class="col-md-6">
 			<p> {{ currentExercise.results }} </p>
-			<canvas id="lesson04-canvas" style="border: none;" width="500" height="500"></canvas>
+			<div id="canvas" style="border: none;" width="500" height="500"></div>
 			<p> {{ inputs }} </p>
 		</div>
 	</div>

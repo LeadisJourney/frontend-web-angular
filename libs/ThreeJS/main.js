@@ -1,6 +1,11 @@
-var container, stats;
+window.onload = function (){
+
+
+var container, father, stats;
 
 var camera, scene, renderer;
+
+var controls;
 
 var cube, plane;
 
@@ -28,19 +33,31 @@ function webglAvailable() {
 		}
 	}
 
-function init() {
-	container = document.createElement('div');
-	document.body.appendChild(container);
+function drawMap(){
+	for (var count = 1; count <= 100; count++) {
+		var geometry = new THREE.BoxGeometry(100, 10, 100);
 
-	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-	camera.position.y = 150;
-	camera.position.z = 500;
+		for (var i = 0; i < geometry.faces.length; i += 2) {
 
-	scene = new THREE.Scene();
+			var hex = Math.random() * 0xffffff;
+			geometry.faces[ i ].color.setHex(hex);
+			geometry.faces[ i + 1 ].color.setHex(hex);
 
-	// Cube
+		}
 
-	var geometry = new THREE.BoxGeometry(200, 200, 200);
+		var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors, overdraw: 0.5 });
+
+		cube = new THREE.Mesh(geometry, material);
+		cube.position.y = 100;
+		cube.position.x = count % 10 * 100;
+		cube.position.z = -(Math.floor(count / 11) * 100);
+		console.log(cube.position.x, cube.position.y, cube.position.z);
+		scene.add(cube);
+	}
+}
+
+function drawLeadis() {
+	var geometry = new THREE.BoxGeometry(100, 200, 100);
 
 	for (var i = 0; i < geometry.faces.length; i += 2) {
 
@@ -53,18 +70,44 @@ function init() {
 	var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors, overdraw: 0.5 });
 
 	cube = new THREE.Mesh(geometry, material);
-	cube.position.y = 150;
+	cube.position.y = 250;
 	scene.add(cube);
 
-	// Plane
+}
 
-	var geometry = new THREE.PlaneBufferGeometry(200, 200);
+function drawLeadisShadow(){
+	var geometry = new THREE.PlaneBufferGeometry(100, 100);
 	geometry.rotateX(- Math.PI / 2);
 
 	var material = new THREE.MeshBasicMaterial({ color: 0xe0e0e0, overdraw: 0.5 });
 
 	plane = new THREE.Mesh(geometry, material);
+	plane.position.y = 107;
 	scene.add(plane);
+
+}
+
+function init() {
+	//container = document.createElement('div');
+	container = document.getElementById("canvas");
+	//father.appendChild(container);
+
+	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 100000);
+	camera.position.y = 500;
+	camera.position.z = 700;
+	controls = new THREE.OrbitControls( camera );
+	controls.addEventListener( 'change', render );
+
+	scene = new THREE.Scene();
+
+	// Map
+	drawMap();
+
+	// Cube
+	drawLeadis();
+
+	// Plane
+	drawLeadisShadow();
 
 	if ( webglAvailable() ) {
 		renderer = new THREE.WebGLRenderer();
@@ -87,6 +130,7 @@ function init() {
 	
 	window.addEventListener('resize', onWindowResize, false);
 }
+
 function onWindowResize() {
 	windowHalfX = window.innerWidth / 2;
 	windowHalfY = window.innerHeight / 2;
@@ -94,6 +138,7 @@ function onWindowResize() {
 	camera.updateProjectionMatrix();
 	renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
 //
 function onDocumentMouseDown(event) {
 	event.preventDefault();
@@ -103,20 +148,24 @@ function onDocumentMouseDown(event) {
 	mouseXOnMouseDown = event.clientX - windowHalfX;
 	targetRotationOnMouseDown = targetRotation;
 }
+
 function onDocumentMouseMove(event) {
 	mouseX = event.clientX - windowHalfX;
 	targetRotation = targetRotationOnMouseDown + (mouseX - mouseXOnMouseDown) * 0.02;
 }
+
 function onDocumentMouseUp(event) {
 	document.removeEventListener('mousemove', onDocumentMouseMove, false);
 	document.removeEventListener('mouseup', onDocumentMouseUp, false);
 	document.removeEventListener('mouseout', onDocumentMouseOut, false );
 }
+
 function onDocumentMouseOut( event ) {
 	document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
 }
+
 function onDocumentTouchStart(event) {
 	if (event.touches.length === 1) {
 		event.preventDefault();
@@ -124,6 +173,7 @@ function onDocumentTouchStart(event) {
 		targetRotationOnMouseDown = targetRotation;
 	}
 }
+
 function onDocumentTouchMove(event) {
 	if (event.touches.length === 1) {
 		event.preventDefault();
@@ -132,13 +182,17 @@ function onDocumentTouchMove(event) {
 	}
 }
 //
+
 function animate() {
 	requestAnimationFrame(animate);
+	controls.update();
 	//stats.begin();
 	render();
 	//stats.end();
 }
+
 function render() {
 	plane.rotation.y = cube.rotation.y += (targetRotation - cube.rotation.y) * 0.05;
 	renderer.render(scene, camera);
+}
 }
