@@ -1,9 +1,7 @@
 ﻿'use strict';
 
-var Leadis = angular.module('Leadis', ['ngRoute', 'LeadisControllers', 'ngStorage']);
-
-Leadis.config(['$routeProvider', function ($routeProvider) {
-
+var Leadis = angular.module('Leadis', ['ngRoute', 'LeadisControllers', 'ngStorage'])
+.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when("/home", {
         templateUrl: "home.html",
@@ -23,7 +21,13 @@ Leadis.config(['$routeProvider', function ($routeProvider) {
     })
     .otherwise({
         redirectTo: '/home'
-    });
-}]);
+    })
+}])
+.run(run);
+
+
+function run($localStorage) {
+    $localStorage.requestURL = "api-leadisjourney.azurewebsites.net";
+};
 
 var LeadisControllers = angular.module('LeadisControllers', []);

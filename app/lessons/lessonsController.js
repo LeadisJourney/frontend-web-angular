@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-LeadisControllers.controller('lessonsController', ['$scope', '$localStorage', function ($scope, $localStorage) {
+LeadisControllers.controller('lessonsController', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
 	$scope.message = "welcome";
 
     // Defaults
@@ -44,4 +44,46 @@ LeadisControllers.controller('lessonsController', ['$scope', '$localStorage', fu
 		$localStorage.token = null;
 		$scope.user = null;
 	};
+
+	var parseLessonRequest = function(data)
+	{
+		var result = [];
+		for (var i = data.sources.length - 1; i >= 0; i--) {
+			if (data.sources[i].type == "Text") {
+				result.description = data.sources[i].content;
+			}
+			else if (data.sources[i].type == "Image") {
+				result.image = data.sources[i].content;
+			}
+			else if (data.sources[i].type == "Video") {
+				result.video = data.sources[i].content;
+			}
+		}
+		result.title = data.title;
+		return result;
+	}
+
+	var init = function()
+	{
+		$http({
+			method: 'GET',
+			url: 'http://'+$localStorage.requestURL+'/v0.1/api/tutorial/',
+			headers: { 'Authorization': 'Bearer '+$localStorage.token }
+		}).then(function (result) {
+			console.log("tutorials successfully got : ")
+			console.log(result)
+			for (var i = 0; i < result.data.length; i++)
+				{
+					lessons.push({ title: result.data[i].title, description: null, image: null, video: null });
+				};
+		}, function(error) {
+			console.log(error);
+			if (error.statusText == "Unauthorized")
+			{
+				alert("You must be logged in to view this content.");
+			}
+		});
+	}
+
+	init();
 }]);

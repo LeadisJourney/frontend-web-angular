@@ -19,6 +19,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 	$scope.user.details = $localStorage.user;
 	$scope.user.token = $localStorage.token;
 	$scope.user.data = [];
+	$scope.user.progres = 10;
 	var nodata = "No data found to load";
 
 	$scope.currentExercise = null;
@@ -34,9 +35,14 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 
 	var results = "";
 
-	exercises.push({title: title1, value: 1, results: results, exo: exo1});
-	exercises.push({title: title2, value: 2, results: results, exo: exo2});
-	exercises.push({title: title3, value: 3, results: results, exo: exo3});
+	//For Test only
+	//exercises.push({title: title1, value: 1, results: results, exo: exo1});
+	//exercises.push({title: title2, value: 2, results: results, exo: exo2});
+	//exercises.push({title: title3, value: 3, results: results, exo: exo3});
+
+	//
+	$scope.video = null;
+	//
 
 	//Set active exercise
 	$scope.showExercise = function(exercise) {
@@ -55,7 +61,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 		console.log(code);
 		var header = 'Bearer '+ $localStorage.token;
 		console.log(header);
-		$http.post("http://api-leadisjourney.azurewebsites.net/v0.1/api/userexperience", {
+		$http.post("http://"+$localStorage.requestURL+"/v0.1/api/userexperience", {
 				"RequestId" : "14",
 				"Language" : "C",
 				"Code": code,
@@ -69,6 +75,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 				// }
 			},
 			function(error) {console.log("Error : "); console.log(error)});
+		$scope.video = "ressources/mazeResolved.mp4";
 	};
 
 	//Save inputs in user's data
@@ -96,4 +103,46 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 		$localStorage.token = null;
 		$scope.user = null;
 	};
+
+	var parseExerciceRequest = function(data)
+	{
+		var result = [];
+		for (var i = data.sources.length - 1; i >= 0; i--) {
+			if (data.sources[i].type == "Text") {
+				result.exo = data.sources[i].content;
+			}
+			else if (data.sources[i].type == "Image") {
+				result.image = data.sources[i].content;
+			}
+			else if (data.sources[i].type == "Video") {
+				result.video = data.sources[i].content;
+			}
+		}
+		result.title = data.title;
+		return result;
+	}
+
+	var init = function()
+	{
+		$http({
+			method: 'GET',
+			url: 'http://'+$localStorage.requestURL+'/v0.1/api/exercice',
+			headers: { 'Authorization': 'Bearer '+$localStorage.token }
+		}).then(function (result) {
+			console.log("tutorials successfully got : ")
+			console.log(result)
+			for (var i = 0; i < result.data.length; i++)
+				{
+					exercises.push(parseExerciceRequest(result.data[i]));
+				};
+		}, function(error) {
+			console.log(error);
+			if (error.statusText == "Unauthorized")
+			{
+				alert("You must be logged in to view this content.");
+			}
+		});
+	}
+
+	init();
 }]);

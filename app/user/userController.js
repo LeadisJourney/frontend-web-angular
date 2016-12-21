@@ -23,13 +23,6 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 										"FirstName": null
 									};
 
-	var editInfo = $scope.editInfo = {
-										"Email": null,
-										"FirstName": null,
-										"Name": null,
-										"Password": null,
-									};
-
 	var loginInfo = $scope.loginInfo = { "Pseudo" : null, "Password": null };
 
 	var checkDataForm = function()
@@ -46,7 +39,7 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 
 		$http({
 			method: 'POST',
-			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/account',
+			url: 'http://'+$localStorage.requestURL+'/v0.1/api/account',
 			data: {
 			 			"Pseudo" : newUser.Pseudo,
 			 			"Password" : newUser.Password,
@@ -66,15 +59,18 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 
 	$scope.login_user = function()
 	{
-		$http.post('http://api-leadisjourney.azurewebsites.net/v0.1/api/account/login', {
+		$http.post('http://'+$localStorage.requestURL+'/v0.1/api/account/login', {
 			"Email" : loginInfo.Email,
 			"Password" : loginInfo.Password
 		}).then(function(result) {
+			console.log("user successfully login : ")
 			console.log(result)
 			$localStorage.user = {
 				"Email" : loginInfo.Email,
-				"Password" : loginInfo.Password
+				"Password" : loginInfo.Password,
+				"Id" : result.data.id
 			};
+			$localStorage.user.Id = result.data.id;
 			$localStorage.token = result.data.token;
 			$scope.user = $localStorage.user;
 			console.log("data got : "+result.data);
@@ -89,36 +85,37 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 		$scope.user = null;
 	};
 
-	$scope.infos_user = function(nb)
+	$scope.infos_user = function()
 	{
 		$http({
 			method: 'GET',
-			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/account/'+nb
-		}).then(function successCallback(response) {
-        	$localStorage.user = response.data;
-			// {
-			//   "Email": "user@example.com",
-			//   "Name": "Smith",
-			//   "FirstName": "John",
-			//   "Pseudo": "Utilisateur"
-			// }
-        }, function errorCallback(response) {
-			alert("Error: " + response.statusText);
-		});
+			url: 'http://'+$localStorage.requestURL+'/v0.1/api/account/'+ $localStorage.user.Id
+		}).then(function (result) {
+			console.log("user infos successfully got : ")
+			console.log(result)
+			$localStorage.user.Email = result.data.email;
+			$localStorage.user.Name = result.data.name;
+			$localStorage.user.FirstName = result.data.firstName;
+			$localStorage.user.Pseudo = result.data.pseudo;
+		}, function(error) {console.log(error)});
 	};
 
 	$scope.edit_user_info = function()
 	{
-		$http({
-			method: 'POST',
-			url: 'http://api-leadisjourney.azurewebsites.net/v0.1/api/account',
-			data: {
-				"Email": editInfo.Email,
-				"FirstName": editInfo.FirstName,
-				"Name": editInfo.Name,
-				"Password": editInfo.Password,
-				}
-			}).then(function(result) {console.log(result)},
-			function(error) {console.log(error)});
+		console.log('http://'+$localStorage.requestURL+'/v0.1/api/account/'+ $localStorage.user.Id);
+		var header = 'Bearer '+ $localStorage.token;
+		$http.put("http://"+$localStorage.requestURL+"/v0.1/api/account/"+ $localStorage.user.Id, {
+				"Email": $localStorage.user.Email,
+				"FirstName": $localStorage.user.FirstName,
+				"Name": $localStorage.user.Name,
+				"Password": $localStorage.user.Password,
+			},
+			{headers: {'Authorization' : header}})
+		.then(
+			function(result) {
+				console.log("user infos successfully modified : ")
+				console.log(result)
+			},
+			function(error) {console.log("Error : "); console.log(error)});
 	};
 }]);
