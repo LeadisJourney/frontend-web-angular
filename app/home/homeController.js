@@ -40,9 +40,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 	//exercises.push({title: title2, value: 2, results: results, exo: exo2});
 	//exercises.push({title: title3, value: 3, results: results, exo: exo3});
 
-	//
 	$scope.video = null;
-	//
 
 	//Set active exercise
 	$scope.showExercise = function(exercise) {
@@ -55,8 +53,17 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 		$scope.currentExercise = null;
 	};
 
+    function launchAnimation(exName, result) {
+    	var resultsParsed = result.split("]");
+    	var data = resultsParsed[0].split("[")[1];
+
+        serverDatas = data.split(", ");
+        console.log(serverDatas);
+        loadModels(exName);
+    }
+
 	//Send a request to API with the user's input to compile it
-	$scope.launchExercise = function() {
+	$scope.launchExercise = function(ex = "la_meilleure") {
 		var code = editor.getSession().getValue();
 		console.log(code);
 		var header = 'Bearer '+ $localStorage.token;
@@ -66,16 +73,16 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 				"Language" : "C",
 				"Code": code,
 				"Type" : "Compilation",
-				"Exercise" : "la_meilleure"
+				"Exercise" : ex
 			}, {headers: {'Authorization' : header}}).then(function(result) {
 				console.log(result)
 				$scope.currentExercise.results = result.data.result;
-				// if (result.data.result == "Bravo !") {
-				// 	launchAnimation(JSONGameRun);
-				// }
+				if (result.data.status == "OK") {
+					launchAnimation(ex, result.data.result);
+				}
 			},
 			function(error) {console.log("Error : "); console.log(error)});
-		$scope.video = "ressources/mazeResolved.mp4";
+		//$scope.video = "ressources/mazeResolved.mp4";
 	};
 
 	//Save inputs in user's data
@@ -88,13 +95,11 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 		if ($scope.user.data[$scope.currentExercise.value] == null || $scope.user.data[$scope.currentExercise.value] == "")
 			alert(nodata);
 		editor.getSession().setValue($scope.user.data[$scope.currentExercise.value]);
-		// $scope.user.inputs[$scope.currentExercise.value] = $scope.user.data[$scope.currentExercise.value];
 	};
 
 	//Erase inputs in user's data
 	$scope.eraseExercise = function() {
 		editor.getSession().setValue("");
-		// $scope.user.inputs[$scope.currentExercise.value] = "";
 	};
 
 	$scope.logout_user = function()
@@ -129,7 +134,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 			url: 'http://'+$localStorage.requestURL+'/v0.1/api/exercice',
 			headers: { 'Authorization': 'Bearer '+$localStorage.token }
 		}).then(function (result) {
-			console.log("tutorials successfully got : ")
+			console.log("exercises successfully got : ")
 			console.log(result)
 			for (var i = 0; i < result.data.length; i++)
 				{
