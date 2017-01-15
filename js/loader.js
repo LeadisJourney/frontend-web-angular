@@ -8,28 +8,25 @@ var rockModel = null;
 
 // Special callback to get a reference to leadis
 function addLeadisToScene(geometry, materials){
-    console.log("Load Leadis model");
     var material = new THREE.MeshFaceMaterial(materials);
     leadisModel = new THREE.Mesh(geometry, material);
-    leadisModel.scale.set(0.2,0.2,0.2);
+    leadisModel.scale.set(1,1,1);
     leadisModel.position.y += 0.5;
     scene.add(leadisModel);
 }
 
 function addJewelToScene(geometry, materials){
-    console.log("Load jewel model");
     var material = new THREE.MeshFaceMaterial(materials);
     jewelModel = new THREE.Mesh(geometry, material);
-    jewelModel.scale.set(0.5,0.5,0.5);
+    jewelModel.scale.set(1,1,1);
     jewelModel.position.set(2, 0, 0);
     scene.add(jewelModel);
 }
 
 function addRockToScene(geometry, materials){
-    console.log("Load rock model");
     var material = new THREE.MeshFaceMaterial(materials);
     rockModel = new THREE.Mesh(geometry, material);
-    rockModel.scale.set(0.5,0.5,0.5);
+    rockModel.scale.set(1,1,1);
     rockModel.position.set(-2, 0, 0);
     scene.add(rockModel);
 }
@@ -37,14 +34,14 @@ function addRockToScene(geometry, materials){
 function addWallToScene(geometry, materials){
     var material = new THREE.MeshFaceMaterial(materials);
     wallModel = new THREE.Mesh(geometry, material);
-    wallModel.scale.set(0.5,0.5,0.5);
+    wallModel.scale.set(1,1,1);
     scene.add(wallModel);
 }
 
 function addTileToScene(geometry, materials){
     var material = new THREE.MeshFaceMaterial(materials);
     tileModel = new THREE.Mesh(geometry, material);
-    tileModel.scale.set(0.5,0.5,0.5);
+    tileModel.scale.set(1,1,1);
     scene.add(tileModel);
 }
 
@@ -52,31 +49,40 @@ function addTileToScene(geometry, materials){
 function addModelToScene(geometry, materials) {
     var material = new THREE.MeshFaceMaterial(materials);
     model = new THREE.Mesh(geometry, material);
-    model.scale.set(0.5,0.5,0.5);
+    model.scale.set(1,1,1);
     scene.add(model);
 }
 
 function loadModels(exName){
     console.log("load models");
     exercice = exName;
+    startAnimTime = Date.now();
 	switch (exName){
-		case 'LaMeilleure':
+		case 'la_meilleure':
             console.log("LaMeilleure elements");
+            loader.load("models/ground.json", addModelToScene);
 			loader.load("models/leadis.json", addLeadisToScene);
 			loader.load("models/rock.json", addRockToScene);
 			loader.load("models/jewel.json", addJewelToScene);
+            render();
 			break;
-		case 'LesMeilleures':
+		case 'les_meilleures':
+            loader.load("models/ground.json", addModelToScene);
 			loader.load("models/leadis.json", addLeadisToScene);
 			loader.load("models/rock.json", addRockToScene);
 			loader.load("models/jewel.json", addJewelToScene);
+            render();
 			break;
-		case 'LaSortie':
+		case 'la_sortie':
+            loader.load("models/ground.json", addModelToScene);
 			loader.load("models/leadis.json", addLeadisToScene);
 			loader.load("models/tile.json", addTileToScene);
 			loader.load("models/wall.json", addWallToScene);
+            render();
 			break;
 	}
-	startAnimTime = Date.now();
-	render();
+    scene.children.forEach(function(object){
+        scene.remove(object);
+    });
+    renderer.clear();
 }

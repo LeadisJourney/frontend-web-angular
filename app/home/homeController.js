@@ -54,20 +54,25 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 	};
 
     function launchAnimation(exName, result) {
-    	var resultsParsed = result.split("]");
-    	var data = resultsParsed[0].split("[")[1];
-
-        serverDatas = data.split(", ");
-        console.log(serverDatas);
-        loadModels(exName);
+    	// var resultsParsed = result.split("]");
+    	// var data = resultsParsed[0].split("[")[1];
+        // console.log(data, resultsParsed[0].split("[")[1]);
+		if (typeof result != "undefined"){
+			serverDatas = result;
+			console.log("exName: ", exName);
+			console.log("serverDatas: ", serverDatas);
+			loadModels(exName);
+		}
+		else{
+			alert("Error retrieving data from server. "+ result);
+		}
     }
 
 	//Send a request to API with the user's input to compile it
-	$scope.launchExercise = function(ex = "la_meilleure") {
+	$scope.launchExercise = function(ex) {
+		ex = "la_meilleure";
 		var code = editor.getSession().getValue();
-		console.log(code);
 		var header = 'Bearer '+ $localStorage.token;
-		console.log(header);
 		$http.post("http://"+$localStorage.requestURL+"/v0.1/api/userexperience", {
 				"RequestId" : "14",
 				"Language" : "C",
@@ -75,9 +80,10 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 				"Type" : "Compilation",
 				"Exercise" : ex
 			}, {headers: {'Authorization' : header}}).then(function(result) {
-				console.log(result)
+				console.log("server response: ", result);
 				$scope.currentExercise.results = result.data.result;
 				if (result.data.status == "OK") {
+					console.log("Data to animation: ", result.data);
 					launchAnimation(ex, result.data.result);
 				}
 			},
@@ -125,7 +131,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 		}
 		result.title = data.title;
 		return result;
-	}
+	};
 
 	var init = function()
 	{
@@ -134,12 +140,12 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 			url: 'http://'+$localStorage.requestURL+'/v0.1/api/exercice',
 			headers: { 'Authorization': 'Bearer '+$localStorage.token }
 		}).then(function (result) {
-			console.log("exercises successfully got : ")
-			console.log(result)
+			console.log("exercises successfully got : ");
+			console.log(result);
 			for (var i = 0; i < result.data.length; i++)
 				{
 					exercises.push(parseExerciceRequest(result.data[i]));
-				};
+				}
 		}, function(error) {
 			console.log(error);
 			if (error.statusText == "Unauthorized")
@@ -147,7 +153,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 				alert("You must be logged in to view this content.");
 			}
 		});
-	}
+	};
 
 	init();
 }]);

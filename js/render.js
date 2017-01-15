@@ -2,6 +2,7 @@ var renderer = new THREE.WebGLRenderer();
 var isRendererOk = false;
 
 function lM_winAnimation() {
+    console.log("Win Animation");
     var time = Date.now();
     jewelModel.rotation.y += 0.02;
     rockModel.rotation.y -= 0.02;
@@ -18,7 +19,7 @@ function lM_winAnimation() {
 }
 
 function lM_looseAnimation() {
-    var time = date.now();
+    var time = Date.now();
     jewelModel.rotation.y += 0.02;
     rockModel.rotation.y -= 0.02;
     if (time - startAnimTime < 1000){
@@ -27,6 +28,23 @@ function lM_looseAnimation() {
     else if (time - startAnimTime < 2000){
         leadisModel.position.x = -2 / 2000 * (time - startAnimTime);
     }
+}
+
+function getDifference(a, b)
+{
+    var i = 0;
+    var j = 0;
+    var result = "";
+    console.log("a: ", a,"\nb: ", b);
+    while (j < b.length)
+    {
+        if (a[i] != b[j] || i == a.length)
+            result += b[j];
+        else
+            i++;
+        j++;
+    }
+    return result;
 }
 
  // Render loop to rotate our sphere by a little bit each frame
@@ -38,19 +56,18 @@ function lM_looseAnimation() {
         document.getElementById("canvas").appendChild(renderer.domElement);
         isRendererOk = true;
     }
-
     requestAnimationFrame(render);
-     if (typeof serverDatas != undefined && serverDatas != null){
+     if (typeof serverDatas != "undefined" && serverDatas != null){
          switch (exercice){
-             case "LaMeilleure":
-                 if (serverDatas[3] == serverDatas[4]){
+             case "la_meilleure":
+                 if (getDifference(serverDatas, "Bravo !") == ""){
                      lM_winAnimation();
                  }
                  else {
                      lM_looseAnimation();
                  }
                  break;
-             case "LesMeilleures":
+             case "les_meilleures":
                  if (serverDatas[3] == serverDatas[5] && serverDatas[4] == serverDatas[6]){
                      lsM_winAnimation();
                  }

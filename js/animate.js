@@ -44,25 +44,3 @@ function animate(model){
 		model.rotation.z += percentTimeComp * (destRot.z - orRot.z);
 	}
 }
-
-function initAnimation(keyword, model){
-	switch (keyword){
-		default:
-		break;
-	}
-}
-
-function cleanAnimation(){
-	origin.x = null;
-	origin.y = null;
-	origin.z = null;
-	destination.x = null;
-	destination.y = null;
-	destination.z = null;
-	orRot.x = null;
-	orRot.y = null;
-	orRot.z = null;
-	destRot.x = null;
-	destRot.y = null;
-	destRot.z = null;
-}
