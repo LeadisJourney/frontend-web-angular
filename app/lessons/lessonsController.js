@@ -5,21 +5,20 @@ LeadisControllers.controller('lessonsController', ['$scope', '$http', '$localSto
 
     // Defaults
     $scope.activeItem = null;
+	$scope.isShowGlossary = false;
 
 	var lessons = $scope.lessons = [];
-	var title0 = "Bonjour Leadis";
-	var title1 = "Leadis a la plage";
-	var title2 = "Leadis contre-attaque";
-	var description0 = "Nous sommes très heureux de vous compter parmi nous";
-	var description1 = "Leadis a la plage trempe ses non-pieds.\nPour ce cours vous devrez utiliser une très belle technique de programmation appelée...";
-	var description2 = "Leadis contre-attaque, faites attention";
+	var glossary = $scope.glossary = [];
+	var title0 = "function";
+	var title1 = "variable";
+	var title2 = "loops";
+	var description0 = "A function is a group of statements that together perform a task. Every C program has at least one function, which is main(), and all the most trivial programs can define additional functions.";
+	var description1 = "A variable is a name given to a storage area that our programs can manipulate. Each variable in C has a specific type, which determines the size and layout of the variable's memory; the range of values that can be stored within that memory; and the set of operations that can be applied to the variable.";
+	var description2 = "A loop statement allows us to execute a statement or group of statements multiple times.";
 
-	var leadisImagePath = "ressources/2017_logo_LeadisJourney.png";
-	var videoPath = "ressources/video.mp4";
-
-	lessons.push({ title: title0, description: description0, image: leadisImagePath, video: null });
-	lessons.push({ title: title1, description: description1, image: null, video: null });
-	lessons.push({ title: title2, description: null, image: null, video: videoPath });
+	glossary.push({ title: title0, description: description0});
+	glossary.push({ title: title1, description: description1});
+	glossary.push({ title: title2, description: description2});
 
 	$scope.user = {};
 	$scope.user.details = $localStorage.user;
@@ -28,15 +27,20 @@ LeadisControllers.controller('lessonsController', ['$scope', '$http', '$localSto
 
     //Set active lesson or unset if already set
     $scope.showLesson = function(lesson) {
-    	if ($scope.activeItem == lesson)
-    	{
+    	if ($scope.activeItem == lesson) {
 			$scope.activeItem = null;
-    	}
-    	else
-    	{
+    	} else {
 	    	$scope.activeItem = lesson;
 		}
 	};
+
+	$scope.showGlossary = function() {
+		if ($scope.isShowGlossary == true){
+			$scope.isShowGlossary = false;
+		} else {
+			$scope.isShowGlossary = true;
+		}
+	}
 
 	$scope.logout_user = function()
 	{
@@ -74,7 +78,7 @@ LeadisControllers.controller('lessonsController', ['$scope', '$http', '$localSto
 			console.log(result)
 			for (var i = 0; i < result.data.length; i++)
 				{
-					lessons.push({ title: result.data[i].title, description: null, image: null, video: null });
+					lessons.push(parseLessonRequest(result.data[i]));
 				};
 		}, function(error) {
 			console.log(error);

@@ -113,7 +113,8 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 			{headers: {'Authorization' : header}})
 		.then(
 			function(result) {
-				console.log("user infos successfully modified : ")
+				alert("Your informations have been successfully modified !");
+				console.log("Your informations have been successfully modified !")
 				console.log(result)
 			},
 			function(error) {console.log("Error : "); console.log(error)});

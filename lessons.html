@@ -1,29 +1,48 @@
 ﻿<div style="float: right;">
-    <h4 ng-show="user.token">
+    <p ng-show="user.token">
         Bienvenue à bord, {{ user.details.Email }} !
-    </h4>
+    </p>
     <div ng-show="user.token" class="btn btn-default btn-half stick-right" ng-click="logout_user()">Logoff</div>
     <a href="index.html#/user" ng-show="!user.token" class="btn btn-default">
         Connectez-vous !
     </a>
 </div>
+
 <h2>
     Lessons
 </h2>
 <br/>
+<div class="row">
+    <article ng-show="lessons.length" class="col-md-3 lesson-list">
+    	<a ng-repeat="lesson in lessons" class="btn btn-default" ng-click="showLesson(lesson)">{{ lesson.title }}</a>
+    </article>
 
-<article ng-show="lessons.length" class="col-md-3 lesson-list">
-	<a ng-repeat="lesson in lessons" class="btn btn-default" ng-click="showLesson(lesson)">{{ lesson.title }}</a>
-</article>
+    <div class="col-md-9">
+        <article ng-show="activeItem.description">
+    	    <p>{{ activeItem.description }}</p>
+        </article>
+        <article ng-show="activeItem.image">
+    	    <img ng-src="{{ activeItem.image }}" style="width:50%; height:50%">
+        </article>
+        <article ng-show="activeItem.video">
+        	<video ng-src="{{ activeItem.video }}" controls preload="auto"></video>
+        </article>
+    </div>
+</div>
 
-<div class="col-md-9">
-    <article ng-show="activeItem.description">
-	    <p>{{ activeItem.description }}</p>
-    </article>
-    <article ng-show="activeItem.image">
-	    <img ng-src="{{ activeItem.image }}" style="width:50%; height:50%">
-    </article>
-    <article ng-show="activeItem.video">
-    	<video ng-src="{{ activeItem.video }}" controls preload="auto"></video>
-    </article>
+<div class="row">
+    <br/>
+    <h2 ng-click="showGlossary()" style="cursor: pointer;">
+        + Glossary +
+    </h2>
+    <br/>
+    <div ng-show="isShowGlossary" ng-repeat="lexicon in glossary">
+        <div class="col-md-3">
+            {{ lexicon.title }}
+        </div>
+        <div class="col-md-9">
+            <p>{{ lexicon.description }}</p>
+        </div>
+        <br/>
+    </div>
 </div>
