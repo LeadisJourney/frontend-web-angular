@@ -13,6 +13,7 @@ function addLeadisToScene(geometry, materials){
     leadisModel.scale.set(1,1,1);
     leadisModel.position.y += 0.5;
     scene.add(leadisModel);
+    console.log("Leadis loaded");
 }
 
 function addJewelToScene(geometry, materials){
@@ -21,6 +22,7 @@ function addJewelToScene(geometry, materials){
     jewelModel.scale.set(1,1,1);
     jewelModel.position.set(2, 0, 0);
     scene.add(jewelModel);
+    console.log("jewel loaded");
 }
 
 function addRockToScene(geometry, materials){
@@ -29,6 +31,7 @@ function addRockToScene(geometry, materials){
     rockModel.scale.set(1,1,1);
     rockModel.position.set(-2, 0, 0);
     scene.add(rockModel);
+    console.log("rock loaded");
 }
 
 function addWallToScene(geometry, materials){
@@ -51,15 +54,16 @@ function addModelToScene(geometry, materials) {
     model = new THREE.Mesh(geometry, material);
     model.scale.set(1,1,1);
     scene.add(model);
+    console.log(geometry, "loaded");
 }
 
 function loadModels(exName){
-    console.log("load models");
     exercice = exName;
     startAnimTime = Date.now();
 	switch (exName){
 		case 'la_meilleure':
             console.log("LaMeilleure elements");
+            loader.load("models/sky.json", addModelToScene);
             loader.load("models/ground.json", addModelToScene);
 			loader.load("models/leadis.json", addLeadisToScene);
 			loader.load("models/rock.json", addRockToScene);
@@ -67,6 +71,7 @@ function loadModels(exName){
             render();
 			break;
 		case 'les_meilleures':
+            loader.load("models/sky.json", addModelToScene);
             loader.load("models/ground.json", addModelToScene);
 			loader.load("models/leadis.json", addLeadisToScene);
 			loader.load("models/rock.json", addRockToScene);
@@ -81,8 +86,5 @@ function loadModels(exName){
             render();
 			break;
 	}
-    scene.children.forEach(function(object){
-        scene.remove(object);
-    });
-    renderer.clear();
+	//reload();
 }
