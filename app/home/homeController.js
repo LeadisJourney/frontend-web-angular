@@ -37,8 +37,6 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 
 	//For Test only
 	//exercises.push({title: title1, value: 1, results: results, exo: exo1});
-	//exercises.push({title: title2, value: 2, results: results, exo: exo2});
-	//exercises.push({title: title3, value: 3, results: results, exo: exo3});
 
 	$scope.video = null;
 
@@ -70,7 +68,6 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 
 	//Send a request to API with the user's input to compile it
 	$scope.launchExercise = function(ex) {
-		ex = "la_meilleure";
 		var code = editor.getSession().getValue();
 		var header = 'Bearer '+ $localStorage.token;
 		$http.post("http://"+$localStorage.requestURL+"/v0.1/api/userexperience", {
@@ -88,7 +85,6 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 				}
 			},
 			function(error) {console.log("Error : "); console.log(error)});
-		//$scope.video = "ressources/mazeResolved.mp4";
 	};
 
 	//Save inputs in user's data
@@ -122,11 +118,11 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 			if (data.sources[i].type == "Text") {
 				result.exo = data.sources[i].content;
 			}
-			else if (data.sources[i].type == "Image") {
-				result.image = data.sources[i].content;
+			else if (data.sources[i].type == "Statement") {
+				result.statement = data.sources[i].content;
 			}
-			else if (data.sources[i].type == "Video") {
-				result.video = data.sources[i].content;
+			else if (data.sources[i].type == "serverTitle") {
+				result.serverTitle = data.sources[i].content;
 			}
 		}
 		result.title = data.title;

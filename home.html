@@ -31,6 +31,7 @@
 			<a class="btn btn-default" ng-click="showPanelExercise()" style="width:10%">{{ changeExerciseButton }}</a>
 			{{ currentExercise.title }}
 		</h3>
+		<p style="padding: 10px">{{ currentExercise.statement }}</p>
 		<div class="row col-md-6">
 			<div id="editor" style=" min-height: 200px; border: solid 3px gray;"></div>
 			<br/>
@@ -38,16 +39,13 @@
 				<li class="btn btn-default btn-half" ng-click="saveExercise()">{{ saveExerciseButton }}</li>
 				<li class="btn btn-default btn-half" ng-click="loadExercise()">{{ loadExerciseButton }}</li>
 				<li class="btn btn-default" ng-click="eraseExercise()">{{ eraseExerciseButton }}</li>
-				<li class="btn btn-default" ng-click="launchExercise()">{{ launchExerciseButton }}</li>
+				<li class="btn btn-default" ng-click="launchExercise(currentExercise.serverTitle)">{{ launchExerciseButton }}</li>
 			</ul>
 		</div>
 		<div class="col-md-6">
 			<p> {{ currentExercise.results }} </p>
 			<div id="canvas" style="border: none;" width="500" height="500"></div>
 			<p> {{ inputs }} </p>
-<!-- 		    <article ng-show="video">
-		    	<video ng-src="{{ video }}" controls preload="auto" style="height: 300px;"></video>
-		    </article> -->
 		</div>
 	</div>
 </article>
