@@ -3,13 +3,13 @@
         Bienvenue à bord, {{ user.details.Email }} !
     </p>
     <div ng-show="user.token" class="btn btn-default btn-half stick-right" ng-click="logout_user()">Logoff</div>
-    <a href="index.html#/user" ng-show="!user.token" class="btn btn-default">
+    <a href="index.html#/user" ng-show="!user.token" class="btn btn-default btn-login">
         Connectez-vous !
     </a>
 </div>
 
 <h2>
-    Lessons
+    {{ message }}
 </h2>
 <br/>
 <div class="row">

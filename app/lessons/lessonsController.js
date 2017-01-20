@@ -1,12 +1,11 @@
 ﻿'use strict';
 
 LeadisControllers.controller('lessonsController', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
-	$scope.message = "welcome";
-
     // Defaults
     $scope.activeItem = null;
 	$scope.isShowGlossary = false;
 
+	$scope.message = "Lessons";
 	var lessons = $scope.lessons = [];
 	var glossary = $scope.glossary = [];
 	var title0 = "function";

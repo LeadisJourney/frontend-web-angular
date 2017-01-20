@@ -3,16 +3,18 @@
         Bienvenue à bord, {{ user.details.Email }} !
 	</p>
 	<div ng-show="user.token" class="btn btn-default btn-half stick-right" ng-click="logout_user()">Logoff</div>
-    <a href="index.html#/user" ng-show="!user.token" class="btn btn-default">
+    <a href="index.html#/user" ng-show="!user.token" class="btn btn-default btn-login">
         Connectez-vous !
     </a>
-	<div class="stick-right" style="width: 60%">
+<!-- That functiunality was let down, because less important than the others
+ 	<div class="stick-right" style="width: 60%">
 		<div>Avancement</div>
 		<div class="progress">
 			<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
 				style="width:{{user.progres}}%"></div>
 		</div>
 	</div>
+ -->
 </div>
 <h2>
 	{{ message }}

@@ -5,15 +5,9 @@ LeadisControllers.controller('userController', ['$scope', '$http', '$localStorag
 	$scope.login = "login";
 	$scope.register = "register";
 	$scope.edit = "edit account infos";
-	$scope.details = "vide";
 	$scope.user = $localStorage.user;
 
 	var alertMessage = "please fill in the form correctly.";
-
-	var newLogin = $scope.newLogin = {
-										"Email": null,
-										"Password": null,
-									};
 
 	var newUser = $scope.newUser = {
 										"Pseudo" : null, 

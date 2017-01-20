@@ -7,38 +7,20 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 	editor.$blockScrolling = Infinity;
 
 	$scope.message = "Exercices";
-	$scope.inputs = "";
 	$scope.changeExerciseButton = "Change";
 	$scope.launchExerciseButton = "Compile and Execute";
 	$scope.saveExerciseButton = "Save";
 	$scope.loadExerciseButton = "Load";
 	$scope.eraseExerciseButton = "Erase All";
 
-	//TODO : bind data to user's database
 	$scope.user = {};
 	$scope.user.details = $localStorage.user;
 	$scope.user.token = $localStorage.token;
 	$scope.user.data = [];
-	$scope.user.progres = 10;
 	var nodata = "No data found to load";
 
 	$scope.currentExercise = null;
 	var exercises = $scope.exercises = [];
-
-	var title1 = "Exercice 1 : la_meilleure";
-	var title2 = "Exercice 2 : les_meilleures";
-	var title3 = "Exercice 3 : la_sortie";
-
-	var exo1 = "int la_meilleure(int a, int b, int c) {\n\t/* A supprimer */ \n\treturn (a > b) ? (a > c ? c : a) : (b > c ? b : c);\n\t/* A supprimer */\n}";
-	var exo2 = "les_meilleures(int resultats[2], int a, int b, int c) { /*your code here*/ }";
-	var exo3 = "typedef struct { int x; int y; } position;\ntypedef enum { SOL = 0, MUR = 1, ARRIVEE = 2 } type;\nvoid\tdeplacement_haut();\nvoid\tdeplacement_bas();\nvoid\tdeplacement_gauche();\nvoid\tdeplacement_droite();\n/* Exemple : 0 : vide 1 : mur 2 : arrivee 1 1 1 1 1 1 1 1 1 1 1 0 0 0 2 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1 1 0 1 1 1 1 1 0 0 1 1 0 0 0 1 0 0 0 0 1 1 0 0 0 1 0 0 0 0 1 1 1 1 0 1 0 1 1 1 1 1 0 0 0 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 */\n/* A supprimer */\n#include <stdlib.h>\n#include <time.h>\n/* A supprimer */\nvoid\tla_sortie(type const labyrinthe[10][10], position const *leadis) \n{\n\t/* A supprimer */ srand(time(NULL)); (void)labyrinthe; (void)leadis; if (rand() % 2) deplacement_gauche(); else deplacement_droite();deplacement_haut();deplacement_haut();deplacement_haut();deplacement_gauche();deplacement_gauche();deplacement_haut();deplacement_haut();deplacement_haut();deplacement_droite();deplacement_droite();deplacement_droite();deplacement_haut();/* A supprimer */\n}";
-
-	var results = "";
-
-	//For Test only
-	//exercises.push({title: title1, value: 1, results: results, exo: exo1});
-
-	$scope.video = null;
 
 	//Set active exercise
 	$scope.showExercise = function(exercise) {
@@ -129,6 +111,7 @@ LeadisControllers.controller('homeController', ['$scope', '$http', '$localStorag
 		return result;
 	};
 
+	//Called at the load of the page, get all exercices from server and add them to the list of displayed data
 	var init = function()
 	{
 		$http({

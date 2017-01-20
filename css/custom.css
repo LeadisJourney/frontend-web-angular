@@ -49,6 +49,11 @@ textarea {
 	float: left;
 }
 
+.btn-login {
+	width: 220px;
+	float: right;
+}
+
 .stick-right {
 	float: right !important;
 }
@@ -62,10 +67,3 @@ canvas {
 	width: 100% !important;
 	height: 100% !important;
 }
-
-/* home
-li.btn {
-	display: block;
-	width: inherit;
-	margin-top: 4px;
-} */
